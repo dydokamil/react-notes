@@ -1,28 +1,84 @@
-.App {
+.notes-panel {
+  width: 50vw;
+  height: 100vh;
+  border-right: 1px solid rgba(0,0,0,.1);
+}
+
+.editor-panel {
+  width: 50vw;
+  height: 100vh;
+  border-left: 1px solid rgba(0,0,0,.1);
+}
+
+.flex-container {
+  display: flex;
+}
+
+.flex-container > div {
+  /* display: flex; */
+}
+
+.note {
+  padding: 2rem;
+  /* border-bottom: 1px solid rgba(0,0,0,.8); */
+  cursor: pointer;
+  transition: background .16s linear;
+  color: rgba(0, 0, 0, .8)
+}
+
+.note:hover {
+  background-color: #fcfcfc;
+}
+
+.note {
+  /* width   : 200px; */
+  /* height  : 50px;    */
+  position: relative;
+  z-index : 1;
+  /* background: #ccc; */
+}
+
+.note:before {
+  content : "";
+  position: absolute;
+  left    : 5%;
+  bottom  : 0;
+  height  : 1px;
+  width   : 90%;  
+  border-bottom:1px solid #eee;
+}
+
+.note-date {
   text-align: center;
+  opacity: .8;
+  /* margin-bottom: 1rem; */
+  /* margin-top: 1rem; */
+  margin-bottom: 2vh;
+  margin-top: 2vh;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
+.editor {
+  /* width: 49.5vw; */
+  /* height: 91%; */
+  /* border: 0; */
+  /* width: 98%; */
+  /* height: 98%; */
+  /* display:flex; */
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
+  /* resize: both; */
+  /* resize:none; */
 
-.App-title {
-  font-size: 1.5em;
-}
+  /* padding: 15px; */
+  /* box-sizing: border-box; */
+  /* margin:0; */
+  /* width: 100%; */
+  /* height: 100vh; */
+  /* border: 0; */
 
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  width: 100%;
+  height: 90vh;
+  padding: 5px;
+  margin: 0;
+  border:0;
+  outline: 0;
 }

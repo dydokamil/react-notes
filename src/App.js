@@ -1,21 +1,53 @@
 import React, { Component } from 'react'
-import logo from './logo.svg'
+import { connect } from 'react-redux'
+import _ from 'lodash'
+
 import './App.css'
 
 class App extends Component {
+  constructor (props) {
+    super(props)
+    this.state = { content: 'Type' }
+  }
+
+  componentDidMount () {
+    this.props.onFetchNotes()
+    // this.onContentChange = this.onContentChange.bind(this)
+  }
+
   render () {
     return (
-      <div className='App'>
-        <header className='App-header'>
-          <img src={logo} className='App-logo' alt='logo' />
-          <h1 className='App-title'>Welcome to React</h1>
-        </header>
-        <p className='App-intro'>
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div>
+        <div className='flex-container'>
+          <div className='notes-panel'>
+            {_.map(this.props.notes.notes, note => {
+              return (
+                <div key={note._id} className='note'>
+                  {note.name}
+                </div>
+              )
+            })}
+          </div>
+          <div className='editor-panel'>
+            <div className='note-date'>Date goes here...</div>
+            <textarea className='editor' size='1' />
+          </div>
+        </div>
       </div>
     )
   }
 }
 
-export default App
+const mapStateToProps = state => {
+  return { notes: state.notes }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onFetchNotes: () => {
+      dispatch({ type: 'FETCH_NOTES_REQUEST' })
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
