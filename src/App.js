@@ -7,7 +7,7 @@ import './App.css'
 class App extends Component {
   constructor (props) {
     super(props)
-    this.state = { content: 'Type' }
+    this.state = { content: 'Type here...' }
   }
 
   componentDidMount () {
@@ -15,23 +15,28 @@ class App extends Component {
     // this.onContentChange = this.onContentChange.bind(this)
   }
 
+  formatDatetime = dt => {
+    return dt.split('.')[0].replace('T', ' ')
+  }
+
   render () {
     return (
-      <div>
-        <div className='flex-container'>
-          <div className='notes-panel'>
-            {_.map(this.props.notes.notes, note => {
-              return (
-                <div key={note._id} className='note'>
-                  {note.name}
+      <div id='content'>
+        <div id='left'>
+          {_.map(_.orderBy(this.props.notes.notes, 'edited', 'desc'), note => {
+            return (
+              <div key={note._id} className='note'>
+                <div className='note-name'>{note.name}</div>
+                <div className='note-date-preview'>
+                  {this.formatDatetime(note.edited)}
                 </div>
-              )
-            })}
-          </div>
-          <div className='editor-panel'>
-            <div className='note-date'>Date goes here...</div>
-            <textarea className='editor' size='1' />
-          </div>
+              </div>
+            )
+          })}
+        </div>
+        <div id='right'>
+          <div className='note-date'>Date goes here...</div>
+          <textarea className='editor' size='1' />
         </div>
       </div>
     )
