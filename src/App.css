@@ -1,25 +1,51 @@
-.notes-panel {
-  width: 50vw;
-  height: 100vh;
-  border-right: 1px solid rgba(0,0,0,.1);
+html, body {
+  height: 100%;
+  line-height: 1.5;
 }
 
-.editor-panel {
-  width: 50vw;
+.wrap {
   height: 100vh;
-  border-left: 1px solid rgba(0,0,0,.1);
-}
-
-.flex-container {
   display: flex;
 }
 
-.flex-container > div {
-  /* display: flex; */
+@media screen and (max-width: 800px) {
+  main{
+    flex-direction: column;    
+  }
 }
 
-#content {
-  height: 100vh;
+main {
+  flex: 1;
+  display: flex;
+  /* @media (max-width: 800px) */
+}
+
+.left, .right {
+  overflow-y: scroll;
+  /* padding: 2em; */
+}
+
+.left {
+  flex: 1;
+  background: #f7f7f7d8;  
+}
+
+.right {
+  flex: 2;
+  background: #f0eeeed2;
+}
+
+h1 {
+  margin-top: 0;
+}
+
+.content {
+  height: 50vh;
+}
+
+.my-navbar {
+  border-bottom: 1px solid #eee;
+  padding: 1rem;
 }
 
 #left {
@@ -27,35 +53,35 @@
   width: 50%;
   background-color: white;
   max-height:100%;
-  overflow: scroll;
+  overflow: auto;
 }
 
 #right {
   float: left;
   width: 50%;
-  background-color:white;
-  max-height:100%;
-  overflow: scroll;
+  background-color: white;
+  max-height: 100%;
+  overflow: auto;
 }
 
 .note {
   padding: 2rem;
-  /* border-bottom: 1px solid rgba(0,0,0,.8); */
   cursor: pointer;
   transition: background .16s linear;
-  color: rgba(0, 0, 0, .8)
+  color: rgba(0, 0, 0, .8);
 }
 
-.note:hover {
+.note-selected {
+  background-color: papayawhip;
+}
+
+.note-hoverable:hover {
   background-color: #fcfcfc;
 }
 
 .note {
-  /* width   : 200px; */
-  /* height  : 50px;    */
   position: relative;
   z-index : 1;
-  /* background: #ccc; */
 }
 
 .note:before {
@@ -79,38 +105,48 @@
 .note-date {
   text-align: center;
   opacity: .8;
-  /* margin-bottom: 1rem; */
-  /* margin-top: 1rem; */
-  margin-bottom: 2vh;
-  margin-top: 2vh;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 
 .editor {
-  /* width: 49.5vw; */
-  /* height: 91%; */
-  /* border: 0; */
-  /* width: 98%; */
-  /* height: 98%; */
-  /* display:flex; */
-
-  /* resize: both; */
-  /* resize:none; */
-
-  /* padding: 15px; */
-  /* box-sizing: border-box; */
-  /* margin:0; */
-  /* width: 100%; */
-  /* height: 100vh; */
-  /* border: 0; */
-
   box-sizing: border-box;
   width: 100%;
 
-  /* width: 92%; */
   height: 92vh;
   resize: none;
   padding: 15px;
-  /* margin: 0; */
   border:0;
+  background-color: transparent;
   outline: 0
+}
+
+.title-editor {
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
+  box-sizing: border-box;
+  width: 100%;
+  text-align: center;
+  border: 0;
+  background: transparent;
+  outline: 0;
+}
+
+.my-navbar > button {
+  font-size: 20px;
+  margin: .1rem;
+  border: 0;
+  background-color: transparent;
+  transition: all .16s;
+}
+
+.my-navbar > button:hover {
+  color: rgba(255, 0, 0, 0.603);
+  cursor: pointer;
+  transform: rotate(360deg);
+}
+
+.my-navbar > button:focus {
+  outline: 0;
 }
