@@ -2,7 +2,7 @@ import axios from 'axios'
 import { all, call, takeEvery, put } from 'redux-saga/effects'
 import consts from './consts'
 
-const ROOT_URL = 'http://localhost:3000'
+const ROOT_URL = 'https://note-node.herokuapp.com'
 
 // fetch notes
 function * watcherFetchNotes () {
