@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   height: 100%;
   line-height: 1.5;
 }
@@ -9,8 +10,8 @@ html, body {
 }
 
 @media screen and (max-width: 800px) {
-  main{
-    flex-direction: column;    
+  main {
+    flex-direction: column;
   }
 }
 
@@ -20,14 +21,15 @@ main {
   /* @media (max-width: 800px) */
 }
 
-.left, .right {
+.left,
+.right {
   overflow-y: scroll;
   /* padding: 2em; */
 }
 
 .left {
   flex: 1;
-  background: #f7f7f7d8;  
+  background: #f7f7f7d8;
 }
 
 .right {
@@ -52,7 +54,7 @@ h1 {
   float: left;
   width: 50%;
   background-color: white;
-  max-height:100%;
+  max-height: 100%;
   overflow: auto;
 }
 
@@ -67,8 +69,8 @@ h1 {
 .note {
   padding: 2rem;
   cursor: pointer;
-  transition: background .16s linear;
-  color: rgba(0, 0, 0, .8);
+  transition: background 0.16s linear;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .note-selected {
@@ -81,17 +83,17 @@ h1 {
 
 .note {
   position: relative;
-  z-index : 1;
+  z-index: 1;
 }
 
 .note:before {
-  content : "";
+  content: "";
   position: absolute;
-  left    : 5%;
-  bottom  : 0;
-  height  : 1px;
-  width   : 90%;  
-  border-bottom:1px solid #eee;
+  left: 5%;
+  bottom: 0;
+  height: 1px;
+  width: 90%;
+  border-bottom: 1px solid #eee;
 }
 
 .note-name {
@@ -99,12 +101,12 @@ h1 {
 }
 
 .note-date-preview {
-  opacity: .8;
+  opacity: 0.8;
 }
 
 .note-date {
   text-align: center;
-  opacity: .8;
+  opacity: 0.8;
   margin-bottom: 1rem;
   margin-top: 1rem;
 }
@@ -116,9 +118,9 @@ h1 {
   height: 92vh;
   resize: none;
   padding: 15px;
-  border:0;
+  border: 0;
   background-color: transparent;
-  outline: 0
+  outline: 0;
 }
 
 .title-editor {
@@ -135,10 +137,10 @@ h1 {
 
 .my-navbar > button {
   font-size: 20px;
-  margin: .1rem;
+  margin: 0.1rem;
   border: 0;
   background-color: transparent;
-  transition: all .16s;
+  transition: all 0.16s;
 }
 
 .my-navbar > button:hover {
