@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import consts from '../consts';
+import consts from '../actions/consts';
 
 const initialState = { notes: undefined, error: undefined, selected: undefined };
 

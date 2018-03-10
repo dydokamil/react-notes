@@ -6,7 +6,7 @@ import createSagaMiddleware from 'redux-saga';
 import { Provider } from 'react-redux';
 
 import './index.css';
-import App from './App';
+import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
 import reducer from './reducers';
 import saga from './sagas';

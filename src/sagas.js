@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { all, call, takeEvery, put } from 'redux-saga/effects';
-import consts from './consts';
+import { all, call, takeEvery, put, take } from 'redux-saga/effects';
+import consts from './actions/consts';
 
-const ROOT_URL = 'https://note-node.herokuapp.com';
-// const ROOT_URL = 'http://localhost:3000';
+// const ROOT_URL = 'https://note-node.herokuapp.com';
+const ROOT_URL = 'http://localhost:3000';
 
 // fetch notes
 const fetchNotes = () => axios.get(`${ROOT_URL}/notes`);

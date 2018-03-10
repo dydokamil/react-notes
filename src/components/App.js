@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import './App.css';
-import Navbar from './components/navbar';
-import consts from './consts';
+import Navbar from './Navbar';
+import consts from '../actions/consts';
 
 const formatDatetime = dt => dt.split('.')[0].replace('T', ' ');
 
