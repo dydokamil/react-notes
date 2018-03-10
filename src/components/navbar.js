@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
 const Navbar = props => (
   <div className="my-navbar">
@@ -13,12 +13,12 @@ const Navbar = props => (
       <i className="fas fa-save" />
     </button>
   </div>
-);
+)
 
 Navbar.propTypes = {
   onNewNote: PropTypes.func.isRequired,
   onRemoveNote: PropTypes.func.isRequired,
-  onUpdateNote: PropTypes.func.isRequired,
-};
+  onUpdateNote: PropTypes.func.isRequired
+}
 
-export default Navbar;
+export default Navbar
