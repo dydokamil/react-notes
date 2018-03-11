@@ -1,0 +1,12 @@
+.right .my-navbar {
+  text-align: center;
+}
+
+button:disabled {
+  cursor: default !important;
+}
+
+button:disabled:hover {
+  color: gray;
+  transform: none;
+}
