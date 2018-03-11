@@ -8,7 +8,8 @@ export default function (state = initialState, action) {
   switch (action.type) {
     case consts.FETCH_NOTES_SUCCESS: // multiple notes
       return {
-        notes: _.mapKeys(action.notes.data, '_id'),
+        ...state,
+        notes: _.mapKeys(action.notes, '_id'),
         error: undefined
       }
     case consts.FETCH_NOTES_ERROR:
@@ -23,11 +24,13 @@ export default function (state = initialState, action) {
           [action.note.data._id]: action.note.data
         }
       }
-
     case consts.NOTE_FETCH_ERROR:
       return { ...state, error: action.error }
+
     case consts.SELECT_NOTE:
       return { ...state, selected: action.id }
+    case consts.SELECT_NOTE_ERROR:
+      return { ...state, selected: undefined, error: action.error }
 
     case consts.NEW_NOTE_SUCCESS:
       return {

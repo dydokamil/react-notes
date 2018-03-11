@@ -6,7 +6,6 @@ import _ from 'lodash'
 import './App.css'
 import Navbar from './Navbar'
 import consts from '../actions/consts'
-import * as actions from '../actions/actions'
 
 const formatDatetime = dt => dt.split('.')[0].replace('T', ' ')
 
@@ -133,9 +132,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch({ type: consts.FETCH_NOTES_REQUEST })
   },
   onSelectNote: id => {
-    dispatch(actions.selectNoteRequest(id))
-    // dispatch({ type: consts.SELECT_NOTE_REQUEST, selected: id })
-    dispatch({ type: consts.FETCH_NOTE_REQUEST, selected: id })
+    dispatch({ type: consts.SELECT_NOTE_REQUEST, id })
+    dispatch({ type: consts.FETCH_NOTE_REQUEST, id })
   },
   onNewNote: () => {
     dispatch({ type: consts.NEW_NOTE_REQUEST })
