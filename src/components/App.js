@@ -59,7 +59,7 @@ class App extends Component {
   }
 
   onRemoveNoteWithParams = () => {
-    this.props.onRemoveNote({ id: this.props.notes.selected })
+    this.props.onRemoveNote(this.props.notes.selected)
     // this.setState({ content: '', name: '' })
   }
 

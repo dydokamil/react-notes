@@ -5,7 +5,10 @@ import {
   fetchNotes,
   workerSelectNote,
   workerFetchNote,
-  fetchNote
+  fetchNote,
+  workerNewNote,
+  newNote,
+  workerRemoveNote
 } from './sagas'
 import createSagaMiddleware from 'redux-saga'
 import { takeEvery } from 'redux-saga/effects'
@@ -15,29 +18,9 @@ import consts from './actions/consts'
 import reducer from './reducers/notesReducer'
 
 describe('sagas', () => {
-  // it('should execute fetch notes saga using snapshots', () => {
-  //   return expectSaga(workerFetchNotes) // also try with watcher
-  //     .run()
-  //     .then(result => {
-  //       expect(result.toJSON()).toMatchSnapshot()
-  //     })
-  // })
-
-  // it('should execute fetch notes using effect creator assertions', () => {
-  //   return expectSaga(workerFetchNotes)
-  //     .returns({ notes: {} })
-  //     .run(1000)
-  // })
+  const error = new Error('Not Found')
 
   describe('when fetching all notes', () => {
-    // it('should call a worker on watcher call', () => {
-    //   // doesn't work
-    //   return expectSaga(workerFetchNotes) // Testing a watcher.
-    //     .put.actionType(consts.FETCH_NOTES_SUCCESS) // Expect this action type,
-    //     .dispatch({ type: consts.FETCH_NOTES_REQUEST }) // when dispatching this.
-    //     .run()
-    // })
-
     it('should call `fetchNotes` from the worker', () => {
       // works
       return expectSaga(workerFetchNotes) // Testing a worker.
@@ -51,7 +34,7 @@ describe('sagas', () => {
         .run()
     })
 
-    it('should execute fetch notes and fail, dispatching `FETCH_NOTES_ERROR` type', () => {
+    it('should execute fetch notes but fail, dispatching `FETCH_NOTES_ERROR` type', () => {
       // works
       return expectSaga(workerFetchNotes)
         .provide({
@@ -75,7 +58,7 @@ describe('sagas', () => {
           })
       })
 
-      it('should fetch notes with reducer and fail', () => {
+      it('should fetch notes with reducer but fail', () => {
         const error = new Error('Not Found')
         return expectSaga(workerFetchNotes)
           .withReducer(reducer)
@@ -109,8 +92,23 @@ describe('sagas', () => {
 
   describe('when fetching a single note', () => {
     describe('when using a reducer', () => {
+      it('should fetch a note with reducer but fail', () => {
+        const id = '-1' // this does not exists in the DB
+
+        return expectSaga(workerFetchNote, { id })
+          .withReducer(reducer)
+          .provide({
+            call () {
+              throw error
+            }
+          })
+          .run()
+          .then(result => {
+            expect(result.storeState.error).toBeDefined()
+          })
+      })
       it('should fetch a note with reducer and succeed', () => {
-        const id = '5a9aba9c4f5ba060a73f6c4d'
+        const id = '5aa56cdae6547728ec5d922a' // this exists in the database
         return expectSaga(workerFetchNote, { id })
           .withReducer(reducer)
           .run()
@@ -118,16 +116,53 @@ describe('sagas', () => {
             expect(result.storeState.notes[id]).toBeDefined()
           })
       })
+    })
+  })
+  describe('when posting', () => {
+    let noteId
+    let initialState
+    describe('when creating a new note', () => {
+      describe('when using a reducer', () => {
+        it('should create a new note with reducer and succeed', () => {
+          return expectSaga(workerNewNote)
+            .withReducer(reducer)
+            .run()
+            .then(result => {
+              expect(result.storeState.notes).toBeDefined()
+              noteId = Object.keys(result.storeState.notes)[0]
+              initialState = result.storeState
+            })
+        })
+        it('should create a new note with reducer but fail', () => {
+          return expectSaga(workerNewNote)
+            .withReducer(reducer)
+            .provide({
+              call () {
+                throw error
+              }
+            })
+            .run()
+            .then(result => {
+              expect(result.storeState.error).toBeDefined()
+            })
+        })
 
-      it('should fetch a note with reducer and fail', () => {
-        const id = 'This id does not exist'
-
-        return expectSaga(workerFetchNote, { id })
-          .withReducer(reducer)
-          .run()
-          .then(result => {
-            expect(result.storeState.error).toBeDefined()
+        describe('when deleting the created note', () => {
+          it('should delete a note and succeed', () => {
+            return expectSaga(workerRemoveNote, { id: noteId })
+              .withReducer(reducer, initialState)
+              .run()
+              .then(result => {
+                expect(result.storeState.notes).not.toHaveProperty(noteId)
+              })
           })
+        })
+      })
+    })
+
+    describe('when updating a note', () => {
+      it('should update an existing note with reducer and succeed', () => {
+        // TODO
       })
     })
   })

@@ -48,9 +48,9 @@ export function * watcherFetchNote () {
 }
 
 // create new note
-const newNote = () => axios.post(`${ROOT_URL}/notes`)
+export const newNote = () => axios.post(`${ROOT_URL}/notes`)
 
-function * workerNewNote () {
+export function * workerNewNote () {
   try {
     const note = yield call(newNote)
     yield put({ type: consts.NEW_NOTE_SUCCESS, note })
@@ -59,7 +59,7 @@ function * workerNewNote () {
   }
 }
 
-function * watcherNewNote () {
+export function * watcherNewNote () {
   yield takeEvery(consts.NEW_NOTE_REQUEST, workerNewNote)
 }
 
@@ -80,9 +80,9 @@ function * watcherUpdateNote () {
 }
 
 // remove note
-const removeNote = id => axios.delete(`${ROOT_URL}/notes/${id.id}`)
+const removeNote = id => axios.delete(`${ROOT_URL}/notes/${id}`)
 
-function * workerRemoveNote ({ id }) {
+export function * workerRemoveNote ({ id }) {
   try {
     yield call(removeNote, id)
     yield put({ type: consts.REMOVE_NOTE_SUCCESS, id })
