@@ -66,7 +66,7 @@ export function * watcherNewNote () {
 // update note
 const updateNote = body => axios.put(`${ROOT_URL}/notes/${body._id}`, body)
 
-function * workerUpdateNote ({ body }) {
+export function * workerUpdateNote ({ body }) {
   try {
     const note = yield call(updateNote, body)
     yield put({ type: consts.UPDATE_NOTE_SUCCESS, note })

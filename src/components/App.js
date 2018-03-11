@@ -9,7 +9,7 @@ import consts from '../actions/consts'
 
 const formatDatetime = dt => dt.split('.')[0].replace('T', ' ')
 
-class App extends Component {
+export class App extends Component {
   constructor (props) {
     super(props)
     this.state = { content: '', name: '' }

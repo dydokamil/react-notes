@@ -1,5 +1,5 @@
 import { runSaga, call } from 'redux-saga'
-import {
+import saga, {
   watcherFetchNotes,
   workerFetchNotes,
   fetchNotes,
@@ -8,10 +8,12 @@ import {
   fetchNote,
   workerNewNote,
   newNote,
-  workerRemoveNote
+  workerRemoveNote,
+  workerUpdateNote,
+  watcherNewNote
 } from './sagas'
 import createSagaMiddleware from 'redux-saga'
-import { takeEvery } from 'redux-saga/effects'
+import { takeEvery, all } from 'redux-saga/effects'
 import { expectSaga } from 'redux-saga-test-plan'
 import configureStore from 'redux-mock-store'
 import consts from './actions/consts'
@@ -133,6 +135,39 @@ describe('sagas', () => {
               initialState = result.storeState
             })
         })
+        it('should update an existing note with reducer and succeed', () => {
+          const expectedUpdatedNote = {
+            _id: noteId,
+            content: 'sonUNF:8l3nSNteflhiu37j4HNSKITfneo3',
+            name: 'Update from test'
+          }
+          return expectSaga(workerUpdateNote, { body: expectedUpdatedNote })
+            .withReducer(reducer, initialState)
+            .run()
+            .then(result => {
+              expect(result.storeState.notes[noteId].content).toEqual(
+                expectedUpdatedNote.content
+              )
+            })
+        })
+        it('should update an existing note with reducer but fail', () => {
+          const expectedUpdatedNote = {
+            _id: noteId,
+            content: 'sonUNF:8l3nSNteflhiu37j4HNSKITfneo3',
+            name: 'Update from test'
+          }
+          return expectSaga(workerUpdateNote, { body: expectedUpdatedNote })
+            .withReducer(reducer, initialState)
+            .provide({
+              call () {
+                throw error
+              }
+            })
+            .run()
+            .then(result => {
+              expect(result.storeState.error).toBeDefined()
+            })
+        })
         it('should create a new note with reducer but fail', () => {
           return expectSaga(workerNewNote)
             .withReducer(reducer)
@@ -156,13 +191,20 @@ describe('sagas', () => {
                 expect(result.storeState.notes).not.toHaveProperty(noteId)
               })
           })
+          it('should delete a note but fail', () => {
+            return expectSaga(workerRemoveNote, { id: noteId })
+              .withReducer(reducer, initialState)
+              .provide({
+                call () {
+                  throw error
+                }
+              })
+              .run()
+              .then(result => {
+                expect(result.storeState.error).toBeDefined()
+              })
+          })
         })
-      })
-    })
-
-    describe('when updating a note', () => {
-      it('should update an existing note with reducer and succeed', () => {
-        // TODO
       })
     })
   })

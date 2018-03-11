@@ -29,8 +29,6 @@ export default function (state = initialState, action) {
 
     case consts.SELECT_NOTE:
       return { ...state, selected: action.id }
-    case consts.SELECT_NOTE_ERROR:
-      return { ...state, selected: undefined, error: action.error }
 
     case consts.NEW_NOTE_SUCCESS:
       return {
@@ -54,6 +52,11 @@ export default function (state = initialState, action) {
           [action.note.data._id]: action.note.data
         }
       }
+    case consts.UPDATE_NOTE_ERROR:
+      return {
+        ...state,
+        error: action.error
+      }
 
     case consts.REMOVE_NOTE_SUCCESS:
       return {
@@ -62,6 +65,11 @@ export default function (state = initialState, action) {
           ..._.omit(state.notes, action.id)
         },
         selected: undefined
+      }
+    case consts.REMOVE_NOTE_ERROR:
+      return {
+        ...state,
+        error: action.error
       }
 
     default:
